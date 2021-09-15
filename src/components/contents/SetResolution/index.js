@@ -1,0 +1,1 @@
+export { SetResolution } from './SetResolution';
