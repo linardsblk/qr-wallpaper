@@ -15,8 +15,12 @@ export const useStore = create((set) => ({
   backgroundColor: '',
   setBackgroundColor: (backgroundColor) => set(() => ({ backgroundColor, backgroundImage: { preview: '', raw: '' } })),
 
-  selectedPhone: { name: '', detail: '' },
+  selectedPhone: { name: '', slug: '' },
   setSelectedPhone: (selectedPhone) => set(() => ({ selectedPhone })),
+
+  resolution: { width: '', height: '' },
+  setWidth: (width) => set((state) => ({ resolution: { width, height: state.resolution.height } })),
+  setHeight: (height) => set((state) => ({ resolution: { height, width: state.resolution.width } })),
 }));
 
 export const useDebounce = (value, delay) => {

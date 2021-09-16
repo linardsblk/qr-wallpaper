@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
-import { useStore } from '../customHooks';
-import { steps } from '../constants';
+import { steps } from '../../constants';
+import { useStore } from '../../customHooks';
 
 export const Navigation = () => {
   const { activeStep, increaseActiveStep, decreaseActiveStep } = useStore();
@@ -15,7 +15,7 @@ export const Navigation = () => {
       )}
 
       <Button variant="contained" color="primary" onClick={increaseActiveStep}>
-        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+        {steps[activeStep].forwardLabel || 'Next'}
       </Button>
     </div>
   );

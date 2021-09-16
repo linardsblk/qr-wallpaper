@@ -2,17 +2,19 @@ import { InputQR, ChooseBackground, SetResolution } from './components/contents'
 
 export const steps = [
   {
-    label: 'Set QR content',
+    label: 'QR content',
     component: InputQR,
   },
   {
-    label: 'Choose background',
-    component: ChooseBackground,
-  },
-  {
-    label: 'Set resolution',
+    label: 'Resolution',
     component: SetResolution,
   },
+  {
+    label: 'Background',
+    component: ChooseBackground,
+    forwardLabel: 'Finish',
+  },
+
   {
     label: 'Result',
     component: InputQR,

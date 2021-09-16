@@ -1,7 +1,7 @@
 import React from 'react';
 import { Stepper as StepperComponent, Step, StepLabel } from '@material-ui/core';
-import { useStore } from '../customHooks';
-import { steps } from '../constants';
+import { steps } from '../../constants';
+import { useStore } from '../../customHooks';
 
 export const Stepper = () => {
   const { activeStep } = useStore();

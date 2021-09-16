@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { Contents, Navigation, Stepper } from './components';
+import { Contents, Navigation, Stepper } from './components/ui';
 
 const useStyles = makeStyles((theme) => ({
   App: {
@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: '90vh',
+    height: '75vh',
     '& > *': {
       margin: theme.spacing(1),
     },

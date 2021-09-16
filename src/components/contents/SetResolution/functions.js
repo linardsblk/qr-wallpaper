@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const searchPhones = async (searchQuery) =>
   axios
-    .get(`https://api-mobilespecs.azharimm.site/v2/search?query=${searchQuery}`)
+    .get(`${process.env.REACT_APP_FETCH_PHONES_ENDPOINT}search?query=${searchQuery}`)
     .then((response) => {
       const {
         data: {
@@ -10,13 +10,13 @@ export const searchPhones = async (searchQuery) =>
         },
       } = response;
 
-      return phones.map((e) => ({ name: `${e.brand} ${e.phone_name}`, detail: e.detail }));
+      return phones.map((e) => ({ name: `${e.brand} ${e.phone_name}`, slug: e.slug }));
     })
     .catch(console.error);
 
-export const getPhoneResolution = async (slug) => {
+export const getPhoneResolution = async (slug) =>
   axios
-    .get(slug)
+    .get(`${process.env.REACT_APP_FETCH_PHONES_ENDPOINT}${slug}`)
     .then((res) => {
       const { specifications } = res.data.data || {};
 
@@ -31,4 +31,3 @@ export const getPhoneResolution = async (slug) => {
       return { width, height };
     })
     .catch(console.error);
-};

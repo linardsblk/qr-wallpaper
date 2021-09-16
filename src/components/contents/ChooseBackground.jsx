@@ -41,18 +41,7 @@ export const ChooseBackground = () => {
           color={backgroundColor}
           onChange={(color) => setBackgroundColor(color.hex)}
           triangle="hide"
-          colors={[
-            '#000000',
-            '#FFFFFF',
-            '#FF6900',
-            '#FCB900',
-            '#7BDCB5',
-            '#00D084',
-            '#8ED1FC',
-            '#0693E3',
-            '#ABB8C3',
-            '#EB144C',
-          ]}
+          colors={['#000000', '#FFFFFF', '#7c3f14', '#127022', '#791974', '#00198a', '#be45d6', '#008669', '#686868']}
         >
           Pick a background color
         </TwitterPicker>
