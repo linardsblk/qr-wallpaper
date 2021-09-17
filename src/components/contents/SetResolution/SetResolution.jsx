@@ -53,7 +53,7 @@ export const SetResolution = () => {
         }}
         inputValue={searchInput}
         onInputChange={(e, data) => setSearchInput(data)}
-        options={options}
+        options={options || []}
         loading={searching}
         getOptionLabel={({ name }) => name || ''}
         style={{ maxWidth: 300, width: '75%' }}

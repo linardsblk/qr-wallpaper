@@ -1,14 +1,16 @@
 import axios from 'axios';
+import { get } from 'lodash-es';
 
 export const searchPhones = async (searchQuery) =>
   axios
-    .get(`${process.env.REACT_APP_FETCH_PHONES_ENDPOINT}search?query=${searchQuery}`)
+    .get(`${process.env.REACT_APP_FETCH_PHONES_ENDPOINT}search`, {
+      params: {
+        query: searchQuery
+      }
+    })
     .then((response) => {
-      const {
-        data: {
-          data: { phones },
-        },
-      } = response;
+
+      const phones = get(response, "data.data.phones", []);
 
       return phones.map((e) => ({ name: `${e.brand} ${e.phone_name}`, slug: e.slug }));
     })
