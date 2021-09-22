@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import create from 'zustand';
+import { getDeviceResolution } from './functions';
 
 export const useStore = create((set) => ({
   activeStep: 0,
@@ -18,7 +19,8 @@ export const useStore = create((set) => ({
   selectedPhone: { name: '', slug: '' },
   setSelectedPhone: (selectedPhone) => set(() => ({ selectedPhone })),
 
-  resolution: { width: '', height: '' },
+  resolution: getDeviceResolution(),
+  setResolution: (resolution) => set(() => ({ resolution })),
   setWidth: (width) => set((state) => ({ resolution: { width, height: state.resolution.height } })),
   setHeight: (height) => set((state) => ({ resolution: { height, width: state.resolution.width } })),
 }));

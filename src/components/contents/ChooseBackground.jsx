@@ -8,7 +8,6 @@ export const ChooseBackground = () => {
   const { increaseActiveStep, backgroundImage, setBackgroundImage, backgroundColor, setBackgroundColor } = useStore();
 
   const handleChange = (e) => {
-    console.log(e);
     if (e.target.files.length) {
       setBackgroundImage({
         preview: URL.createObjectURL(e.target.files[0]),

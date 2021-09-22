@@ -1,0 +1,1 @@
+export { getDeviceResolution } from './getDeviceResolution';

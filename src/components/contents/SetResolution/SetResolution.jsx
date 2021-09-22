@@ -5,19 +5,19 @@ import { getPhoneResolution, searchPhones } from './functions';
 import { useDebounce, useStore } from '../../../customHooks';
 import { useUpdateEffect } from 'react-use';
 import { Or } from '../Or';
-import { Box, Typography } from '@material-ui/core';
+import { Box, Typography, Button } from '@material-ui/core';
 import { LoadingOverlay } from '../../reusables';
+import { getDeviceResolution } from '../../../functions';
 
 export const SetResolution = () => {
-  const { resolution, setWidth, setHeight, selectedPhone, setSelectedPhone } = useStore();
+  const { resolution, setWidth, setHeight, selectedPhone, setSelectedPhone, setResolution, increaseActiveStep } = useStore();
 
   const [searchInput, setSearchInput] = useState('');
   const [options, setOptions] = useState([]);
   const [searching, setSearching] = useState(false);
   const [fetchingResolution, setFetchingResolution] = useState(false);
 
-  const searchQuery = useDebounce(searchInput, 200);
-
+  const searchQuery = useDebounce(searchInput, 350);
 
   useEffect(() => {
     setOptions([]);
@@ -34,18 +34,32 @@ export const SetResolution = () => {
       setFetchingResolution(true);
       getPhoneResolution(selectedPhone.slug)
         .then(({ width, height }) => {
-          setHeight(height);
-          setWidth(width);
+          setResolution({ width, height });
         })
         .finally(() => setFetchingResolution(false));
     } else {
-      setWidth('');
-      setHeight('');
+      setResolution({ width: '', height: '' });
     }
   }, [selectedPhone]);
 
+  const handleCurrentDeviceResolutionButton = () => {
+    setResolution(getDeviceResolution());
+    increaseActiveStep();
+  }
+
   return (
     <>
+      <Button
+        variant="contained"
+        color="primary"
+        component="label"
+        onClick={handleCurrentDeviceResolutionButton}
+      >
+        Current device's resolution
+      </Button>
+
+      <Or />
+
       <Autocomplete
         value={selectedPhone}
         onChange={(e, data) => {
@@ -61,10 +75,15 @@ export const SetResolution = () => {
         getOptionSelected={(option, value) => option.name === value.name}
         filterOptions={(options, state) => options}
       />
-      <Or />
 
       <LoadingOverlay loading={fetchingResolution}>
-        <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="flex-end" style={{ maxWidth: "10rem"}}>
+        <Box
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="flex-end"
+          style={{ maxWidth: '10rem' }}
+        >
           <TextField
             type="number"
             label="Width"
@@ -76,7 +95,7 @@ export const SetResolution = () => {
           <TextField
             type="number"
             label="Height"
-            style={{ width: '40%' }}
+            style={{ width: '40%', marginTop: '7rem' }}
             value={resolution.height}
             onChange={(e) => setHeight(e.target.value)}
           />
