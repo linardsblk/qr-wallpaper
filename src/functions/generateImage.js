@@ -65,7 +65,7 @@ export const generateImage = async ({
     text: qrContent,
     size: QR_SIZE,
     margin: 20,
-    // backgroundImage: qrBackground,
+    backgroundImage: qrBackground,
     components: {
       data: {
         scale: 1,
