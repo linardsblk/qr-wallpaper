@@ -1,0 +1,1 @@
+export { InputQR } from './InputQR';

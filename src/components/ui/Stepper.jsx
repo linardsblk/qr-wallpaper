@@ -7,14 +7,16 @@ export const Stepper = () => {
   const { activeStep } = useStore();
 
   return (
-    <StepperComponent activeStep={activeStep} alternativeLabel>
-      {steps.map(({ label }) => {
-        return (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        );
-      })}
-    </StepperComponent>
+    <div className="stepper">
+      <StepperComponent activeStep={activeStep} alternativeLabel>
+        {steps.map(({ label }) => {
+          return (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          );
+        })}
+      </StepperComponent>
+    </div>
   );
 };

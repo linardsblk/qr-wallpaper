@@ -1,7 +1,5 @@
 import Jimp from 'jimp/es';
 import { AwesomeQR } from 'awesome-qr';
-import { useEffect, useState } from 'react';
-import './App.css';
 
 const roundCorners = (img, radius) => {
   img.scanQuiet(0, 0, img.bitmap.width, img.bitmap.height, function (x, y, idx) {
@@ -26,46 +24,48 @@ const roundCorners = (img, radius) => {
   return img;
 };
 
-const QR_TEXT = 'https://twitter.com/nedefinets';
-const WIDTH = 400;
-const QR_SIZE = 0.8 * WIDTH;
-const HEIGHT = 900;
+export const generateImage = async ({
+  backgroundColor,
+  backgroundImage,
+  qrContent,
+  resolution: { width, height },
+  callback,
+  croppedAreaPixels,
+}) => {
+  const QR_SIZE = 0.8 * (width > height ? height : width);
 
-const [src, setSrc] = useState();
-const [background, setBackground] = useState();
-const [qrBackground, setQrBackground] = useState();
+  const getBackground = async () => {
+    if (backgroundColor) {
+      return new Jimp(width, height, backgroundColor);
+    }
+    if (backgroundImage) {
+      return backgroundImage.raw
+        .arrayBuffer()
+        .then((data) => Jimp.read(data))
+        .then((image) =>
+          image
+            .crop(croppedAreaPixels.x, croppedAreaPixels.y, croppedAreaPixels.width, croppedAreaPixels.height)
+            .resize(width, height)
+        );
+    }
+  };
 
-useEffect(() => {
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', `https://picsum.photos/${WIDTH}/${HEIGHT}`);
-  xhr.responseType = 'blob';
-  xhr.send();
-  xhr.addEventListener('load', function () {
-    const reader = new FileReader();
-    reader.readAsDataURL(xhr.response);
-    reader.addEventListener('loadend', () => {
-      const splitted = reader.result.split(',');
-      const [, string] = splitted;
-      Jimp.read(Buffer.from(string, 'base64')).then((jimpObj) => {
-        setBackground(jimpObj);
-      });
+  const getQRBackground = async (jimpObj) => {
+    return jimpObj
+      .clone()
+      .crop(width / 2 - QR_SIZE / 2, height / 2 - QR_SIZE / 2, QR_SIZE, QR_SIZE)
+      .getBase64Async(Jimp.MIME_JPEG);
+  };
 
-      Jimp.read(Buffer.from(string, 'base64')).then((jimpObj) => {
-        jimpObj
-          .crop(WIDTH / 2 - QR_SIZE / 2, HEIGHT / 2 - QR_SIZE / 2, QR_SIZE, QR_SIZE)
-          .getBase64Async(Jimp.MIME_JPEG)
-          .then(setQrBackground);
-      });
-    });
-  });
-}, []);
+  const backgroundJimp = await getBackground();
 
-if (background && qrBackground) {
+  const qrBackground = await getQRBackground(backgroundJimp);
+
   new AwesomeQR({
-    text: QR_TEXT,
+    text: qrContent,
     size: QR_SIZE,
     margin: 20,
-    backgroundImage: qrBackground,
+    // backgroundImage: qrBackground,
     components: {
       data: {
         scale: 1,
@@ -92,8 +92,10 @@ if (background && qrBackground) {
       Jimp.read(Buffer.from(string, 'base64')).then((jimpQr) => {
         roundCorners(jimpQr, 15);
 
-        background.blit(jimpQr, WIDTH / 2 - QR_SIZE / 2, HEIGHT / 2 - QR_SIZE / 2);
-        background.getBase64Async(Jimp.MIME_JPEG).then(setSrc);
+        backgroundJimp
+          .blit(jimpQr, width / 2 - QR_SIZE / 2, height / 2 - QR_SIZE / 2)
+          .getBase64Async(Jimp.MIME_JPEG)
+          .then(callback);
       });
     });
-}
+};

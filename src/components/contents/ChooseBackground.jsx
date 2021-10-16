@@ -3,9 +3,10 @@ import React from 'react';
 import { TwitterPicker } from 'react-color';
 import { useStore } from '../../customHooks';
 import { Or } from './Or';
+import { Crop } from './SetResolution/Crop';
 
 export const ChooseBackground = () => {
-  const { increaseActiveStep, backgroundImage, setBackgroundImage, backgroundColor, setBackgroundColor } = useStore();
+  const { backgroundImage, setBackgroundImage, backgroundColor, setBackgroundColor } = useStore();
 
   const handleChange = (e) => {
     if (e.target.files.length) {
@@ -13,19 +14,20 @@ export const ChooseBackground = () => {
         preview: URL.createObjectURL(e.target.files[0]),
         raw: e.target.files[0],
       });
-      increaseActiveStep();
     }
   };
 
   if (backgroundImage.preview) {
     return (
       <>
-        <img
-          style={{ maxWidth: '100%', height: 'auto', marginBottom: '3rem' }}
-          src={backgroundImage.preview}
-          alt="Uploaded"
-        ></img>
-        <Button variant="outlined" color="secondary" onClick={() => setBackgroundImage({})}>
+        <Crop src={backgroundImage.preview} />
+
+        <Button
+          variant="outlined"
+          color="secondary"
+          onClick={() => setBackgroundImage({})}
+          style={{ marginTop: '3rem' }}
+        >
           Clear image
         </Button>
       </>
@@ -48,7 +50,7 @@ export const ChooseBackground = () => {
       <Or />
       <Button variant="contained" color="primary" component="label">
         Upload image
-        <input accept="image/*" style={{ display: 'none' }} id="upload-image" type="file" onChange={handleChange} />
+        <input accept="image/*" style={{ display: 'none' }} type="file" onChange={handleChange} />
       </Button>
     </>
   );

@@ -1,29 +1,14 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { Container } from '@material-ui/core';
 import React from 'react';
 import { Contents, Navigation, Stepper } from './components/ui';
 
-const useStyles = makeStyles((theme) => ({
-  App: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: '75vh',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-}));
-
 const App = () => {
-  const classes = useStyles();
-
   return (
-    <div className={classes.App}>
+    <Container className="app" maxWidth="sm">
       <Stepper />
       <Contents />
       <Navigation />
-    </div>
+    </Container>
   );
 };
 

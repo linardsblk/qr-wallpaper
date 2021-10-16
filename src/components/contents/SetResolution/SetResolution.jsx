@@ -10,7 +10,7 @@ import { LoadingOverlay } from '../../reusables';
 import { getDeviceResolution } from '../../../functions';
 
 export const SetResolution = () => {
-  const { resolution, setWidth, setHeight, selectedPhone, setSelectedPhone, setResolution, increaseActiveStep } = useStore();
+  const { resolution, setWidth, setHeight, selectedPhone, setSelectedPhone, setResolution, setActiveStep } = useStore();
 
   const [searchInput, setSearchInput] = useState('');
   const [options, setOptions] = useState([]);
@@ -44,17 +44,12 @@ export const SetResolution = () => {
 
   const handleCurrentDeviceResolutionButton = () => {
     setResolution(getDeviceResolution());
-    increaseActiveStep();
-  }
+    setActiveStep(2);
+  };
 
   return (
     <>
-      <Button
-        variant="contained"
-        color="primary"
-        component="label"
-        onClick={handleCurrentDeviceResolutionButton}
-      >
+      <Button variant="contained" color="primary" component="label" onClick={handleCurrentDeviceResolutionButton}>
         Current device's resolution
       </Button>
 
@@ -95,7 +90,7 @@ export const SetResolution = () => {
           <TextField
             type="number"
             label="Height"
-            style={{ width: '40%', marginTop: '7rem' }}
+            style={{ width: '40%', marginTop: '3rem' }}
             value={resolution.height}
             onChange={(e) => setHeight(e.target.value)}
           />

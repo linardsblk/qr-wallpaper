@@ -1,1 +1,31 @@
 @import-normalize;
+
+html {
+  background-color: #ffffff;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.contents {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.stepper {
+  width: 100%;
+}
+.navigation {
+  width: 100%;
+  position: fixed;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  bottom: env(safe-area-inset-bottom);
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}

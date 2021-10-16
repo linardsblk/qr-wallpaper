@@ -4,18 +4,22 @@ import { steps } from '../../constants';
 import { useStore } from '../../customHooks';
 
 export const Navigation = () => {
-  const { activeStep, increaseActiveStep, decreaseActiveStep } = useStore();
+  const { activeStep } = useStore();
+
+  const stepObj = steps[activeStep] || {};
+
+  const buttonDisabled = stepObj.validation && !stepObj.validation();
 
   return (
-    <div>
-      {activeStep !== 0 && (
-        <Button disabled={activeStep === 0} onClick={decreaseActiveStep}>
+    <div className="navigation">
+      {stepObj.backAction && (
+        <Button disabled={activeStep === 0} onClick={stepObj.backAction}>
           Back
         </Button>
       )}
 
-      <Button variant="contained" color="primary" onClick={increaseActiveStep}>
-        {steps[activeStep].forwardLabel || 'Next'}
+      <Button variant="contained" color="primary" onClick={stepObj.forwardAction} disabled={buttonDisabled}>
+        {stepObj.forwardLabel || 'Next'}
       </Button>
     </div>
   );
