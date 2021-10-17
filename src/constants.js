@@ -15,6 +15,7 @@ export const steps = [
       return qrContent?.length !== 0;
     },
     forwardAction: () => navigation(1),
+    icon: 'qr.svg',
   },
   {
     label: 'Resolution',
@@ -27,6 +28,7 @@ export const steps = [
     },
     forwardAction: () => navigation(2),
     backAction: () => navigation(0),
+    icon: 'resolution.svg',
   },
   {
     label: 'Background',
@@ -38,6 +40,7 @@ export const steps = [
     forwardLabel: 'Finish',
     forwardAction: () => navigation(3),
     backAction: () => navigation(1),
+    icon: 'wallpaper.svg',
   },
 
   {

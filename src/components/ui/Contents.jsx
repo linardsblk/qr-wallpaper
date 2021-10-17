@@ -6,7 +6,15 @@ import { useStore } from '../../customHooks';
 export const Contents = () => {
   const { activeStep, prevActiveStep } = useStore();
 
-  const component = <div className="contents">{React.createElement(steps[activeStep]?.component)}</div>;
+  const currentStep = steps[activeStep] || {};
+  const component = (
+    <div className="contents">
+      {currentStep.icon && (
+        <img src={currentStep.icon} style={{ width: '40%', opacity: 0.4, marginBottom: '3rem' }} alt="icon" />
+      )}
+      {React.createElement(currentStep.component)}
+    </div>
+  );
 
   return prevActiveStep === undefined ? (
     component
