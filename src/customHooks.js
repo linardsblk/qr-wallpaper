@@ -23,8 +23,9 @@ export const useStore = create(
 
     resolution: getDeviceResolution(),
     setResolution: (resolution) => set(() => ({ resolution })),
-    setWidth: (width) => set((state) => ({ resolution: { width, height: state.resolution.height } })),
-    setHeight: (height) => set((state) => ({ resolution: { height, width: state.resolution.width } })),
+    setWidth: (width) => set((state) => ({ resolution: { width: parseInt(width), height: state.resolution.height } })),
+    setHeight: (height) =>
+      set((state) => ({ resolution: { height: parseInt(height), width: state.resolution.width } })),
 
     croppedAreaPixels: { width: 0, height: 0, x: 0, y: 0 },
     setCroppedAreaPixels: (croppedAreaPixels) => set(() => ({ croppedAreaPixels })),

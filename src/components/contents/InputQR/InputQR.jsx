@@ -19,8 +19,7 @@ export const InputQR = () => {
   };
 
   const onInputChange = (e) => {
-    let fr = new FileReader();
-    console.log(fr);
+    const fr = new FileReader();
     setError(null);
     fr.onload = () =>
       readQrCode(fr.result, (code) => {

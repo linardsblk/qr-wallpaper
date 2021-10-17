@@ -1,4 +1,5 @@
 import Jimp from 'jimp/es';
+import jo from 'jpeg-autorotate';
 import { AwesomeQR } from 'awesome-qr';
 
 const roundCorners = (img, radius) => {
@@ -32,7 +33,15 @@ export const generateImage = async ({
   callback,
   croppedAreaPixels,
 }) => {
-  const QR_SIZE = 0.8 * (width > height ? height : width);
+  const QR_SIZE = 0.95 * (width > height ? height : width);
+
+  const rotateImage = async (arrayBuffer) => {
+    const buf = Buffer.from(arrayBuffer);
+    return jo
+      .rotate(buf)
+      .then(({ buffer }) => buffer)
+      .catch(() => buf);
+  };
 
   const getBackground = async () => {
     if (backgroundColor) {
@@ -41,6 +50,7 @@ export const generateImage = async ({
     if (backgroundImage) {
       return backgroundImage.raw
         .arrayBuffer()
+        .then(rotateImage)
         .then((data) => Jimp.read(data))
         .then((image) =>
           image
