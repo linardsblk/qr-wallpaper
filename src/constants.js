@@ -41,6 +41,10 @@ export const steps = [
     forwardAction: () => navigation(3),
     backAction: () => navigation(1),
     icon: 'wallpaper.svg',
+    hideIcon: () => {
+      const { backgroundImage } = useStore.getState();
+      return !!backgroundImage.preview;
+    },
   },
 
   {

@@ -7,11 +7,20 @@ export const Contents = () => {
   const { activeStep, prevActiveStep } = useStore();
 
   const currentStep = steps[activeStep] || {};
+  console.log(currentStep.hideIcon);
+
+  const renderIcon = () => {
+    if (!currentStep.icon) {
+      return null;
+    }
+    if (typeof currentStep.hideIcon === 'function' && currentStep.hideIcon()) {
+      return null;
+    }
+    return <img src={currentStep.icon} style={{ width: '40%', opacity: 0.4, marginBottom: '3rem' }} alt="icon" />;
+  };
   const component = (
     <div className="contents">
-      {currentStep.icon && (
-        <img src={currentStep.icon} style={{ width: '40%', opacity: 0.4, marginBottom: '3rem' }} alt="icon" />
-      )}
+      {renderIcon()}
       {React.createElement(currentStep.component)}
     </div>
   );
