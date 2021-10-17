@@ -29,6 +29,17 @@ export const useStore = create(
 
     croppedAreaPixels: { width: 0, height: 0, x: 0, y: 0 },
     setCroppedAreaPixels: (croppedAreaPixels) => set(() => ({ croppedAreaPixels })),
+
+    startOver: () =>
+      set(() => ({
+        activeStep: 0,
+        qrContent: '',
+        backgroundImage: { preview: '', raw: '' },
+        backgroundColor: '',
+        selectedPhone: { name: '', slug: '' },
+        resolution: getDeviceResolution(),
+        croppedAreaPixels: { width: 0, height: 0, x: 0, y: 0 },
+      })),
   }))
 );
 

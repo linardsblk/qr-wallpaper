@@ -51,5 +51,10 @@ export const steps = [
     label: 'Result',
     component: Result,
     backAction: () => navigation(2),
+    forwardAction: () => {
+      const { startOver } = useStore.getState();
+      startOver();
+    },
+    forwardLabel: 'Start over',
   },
 ];
