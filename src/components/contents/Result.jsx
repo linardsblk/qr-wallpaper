@@ -16,7 +16,7 @@ export const Result = () => {
         setResult(res);
         setLoading(false);
       },
-    });
+    }).catch(console.error);
   }, [store]);
 
   return loading ? (

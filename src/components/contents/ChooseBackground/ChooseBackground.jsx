@@ -1,9 +1,9 @@
 import { Button, Typography } from '@material-ui/core';
 import React from 'react';
 import { TwitterPicker } from 'react-color';
-import { useStore } from '../../customHooks';
-import { Or } from './Or';
-import { Crop } from './SetResolution/Crop';
+import { useStore } from '../../../customHooks';
+import { Or } from '../Or';
+import { Crop } from './Crop';
 
 export const ChooseBackground = () => {
   const { backgroundImage, setBackgroundImage, backgroundColor, setBackgroundColor } = useStore();
