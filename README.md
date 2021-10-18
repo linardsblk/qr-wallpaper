@@ -60,21 +60,17 @@ To get a local copy up and running follow these simple example steps.
 
 ### For local phone API server
 
-1. Generate .env file
-   ```sh
-   npx envup
-   ```
-2. Navigate to server directory
+1. Navigate to server directory
    ```sh
    cd server
    ```
-3. Install NPM packages
+2. Install NPM packages
 
    ```sh
    yarn install
    ```
 
-4. Run app (default port - 4000)
+3. Run app (default port - 4000)
    From server directory...
    ```sh
    yarn start
