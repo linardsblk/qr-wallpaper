@@ -28,6 +28,7 @@
   },
   "scripts": {
     "start": "react-scripts start ",
+    "server": "serverless offline  --prefix server --httpPort 4000",
     "tunnel": "lt --port 3000 --subdomain linards",
     "build": "react-scripts build",
     "test": "react-scripts test",
