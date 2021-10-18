@@ -7,7 +7,6 @@ export const Contents = () => {
   const { activeStep, prevActiveStep } = useStore();
 
   const currentStep = steps[activeStep] || {};
-  console.log(currentStep.hideIcon);
 
   const renderIcon = () => {
     if (!currentStep.icon) {

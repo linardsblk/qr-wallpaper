@@ -71,6 +71,8 @@ export const generateImage = async ({
 
   const qrBackground = await getQRBackground(backgroundJimp);
 
+  throw new Error('testing');
+
   new AwesomeQR({
     text: qrContent,
     size: QR_SIZE,
