@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/149ac997-bfb4-4526-8b9e-e1a121ded324/deploy-status)](https://app.netlify.com/sites/cocky-montalcini-f78a05/deploys)
+
 <div id="top"></div>
 
 <h3 align="center">QR Wallpaper</h3>
